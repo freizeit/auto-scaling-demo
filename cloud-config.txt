@@ -16,7 +16,7 @@
 # if packages are specified, this apt_update will be set to true
 #
 packages:
- - bzr
+ - git
  - nginx
 
 # add each entry to ~/.ssh/authorized_keys for the configured user
@@ -35,15 +35,15 @@ ssh_authorized_keys:
 #
 # Note, that the list has to be proper yaml, so you have to escape
 # any characters yaml would eat (':' can be problematic)
-# runcmd:
-# - [ mkdir, -p, /var/srv ]
-# - [ sh, -xc, "cd /var/srv; git clone git://github.com/al-maisan/ktd.git" ]
-# - [ cp, -p, /var/srv/ktd/nginx.conf /etc/nginx ]
-# - [ /etc/init.d/nginx, restart]
-# - [ sh, -xc, "cd /var/srv/ktd; python ./server.py > server.log 2>&1" ]
+runcmd:
+ - [ mkdir, -p, /var/srv ]
+ - [ sh, -xc, "cd /var/srv; git clone git://github.com/ktdktd/cse2.git" ]
+ - [ cp, -p, /var/srv/cse2/nginx.conf, /etc/nginx ]
+ - [ /etc/init.d/nginx, restart]
+ - [ sh, -xc, "cd /var/srv/cse2; python ./server.py > server.log 2>&1" ]
 
 # timezone: set the timezone for this instance
 # the value of 'timezone' must exist in /usr/share/zoneinfo
 timezone: Europe/Zurich
 
-cc_ready_cmd: [ sh, -xc, "mkdir -p /var/srv; cd /var/srv; bzr co lp:~al-maisan/+junk/ktd; cd ktd; cp -p /var/srv/ktd/nginx.conf /etc/nginx; /etc/init.d/nginx restart; python ./server.py > server.log 2>&1" ]
+# cc_ready_cmd: [ sh, -xc, "mkdir -p /var/srv; cd /var/srv; bzr co lp:~al-maisan/+junk/ktd; cd ktd; cp -p /var/srv/ktd/nginx.conf /etc/nginx; /etc/init.d/nginx restart; python ./server.py > server.log 2>&1" ]
