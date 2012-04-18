@@ -45,5 +45,3 @@ runcmd:
 # timezone: set the timezone for this instance
 # the value of 'timezone' must exist in /usr/share/zoneinfo
 timezone: Europe/Zurich
-
-# cc_ready_cmd: [ sh, -xc, "mkdir -p /var/srv; cd /var/srv; bzr co lp:~al-maisan/+junk/ktd; cd ktd; cp -p /var/srv/ktd/nginx.conf /etc/nginx; /etc/init.d/nginx restart; python ./server.py > server.log 2>&1" ]
