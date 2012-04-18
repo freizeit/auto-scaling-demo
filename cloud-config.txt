@@ -1,0 +1,49 @@
+#cloud-config
+# Update apt database on first boot
+# (ie run apt-get update)
+#
+# Default: true
+
+# Upgrade the instance on first boot
+# (ie run apt-get upgrade)
+#
+# Default: false
+
+# Install additional packages on first boot
+#
+# Default: none
+#
+# if packages are specified, this apt_update will be set to true
+#
+packages:
+ - bzr
+ - nginx
+
+# add each entry to ~/.ssh/authorized_keys for the configured user
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDdiNPjae0csiIidxW3nh5A9yzXjx4r95CSNx9rz6qDeR8lPrToQumZYbZ3Nb0FEYjuyiiafqTKGA3k4vIRyXbjzyYefjFpGL7Feoz7OuVv67rN4JB2RC0H2sgn6k3vz8YgW/cTeIsCeZiyyx2V/21+K6jtu210fkzDYqoQx47AXxGzmM5TgN45EI52lT9w4etKL9TbReBvlhdGNoyAwDzEipjSmSt7H7zEwnbajcB/28mJAjIKK2f5X4Dd+dzz/Vw+fwL/qQ6M2UhRdOOFQGcdp/fg/4C8EDAfCbUTeQVf4S2Emq3fBaCVz2StUrzzXzQ1sLE9ONY3CYvIKGNFNRkE5N6Wn25glGHyKONeRtwmd+xqvjfBFx9tSAysngoKzpQbVe+ZvssLauJPqPPjRGFJ8gZHhS81+ec7Rvf56EmQIS2fhNgNM28lK6ieifNnSOcu3KwST4FWtPdPCey2lz9xz3AVItFSMaxjRFiHjA3XB9hdbbX+EJEli9Ec3pwBxd6WYuWaZoev+cKHI916rTWJr1lD5C4rQ4JldnVbFG69KhU/S7eWWCN8TyEUwq0Ko7cr3FuuJUeJZx/6sQiYIB1EIKDXYeXrDpbkVDCAva682AgBxlKAkNTS+WAZtjFX8xM75upWMmDxEQhFtNXI6Ag+7BYUXhyiAWyDYxPwpfZSrQ== muharem@quietsch
+
+# run commands
+# default: none
+# runcmd contains a list of either lists or a string
+# each item will be executed in order at rc.local like level with
+# output to the console
+# - if the item is a list, the items will be properly executed as if
+#   passed to execve(3) (with the first arg as the command).
+# - if the item is a string, it will be simply written to the file and
+#   will be interpreted by 'sh'
+#
+# Note, that the list has to be proper yaml, so you have to escape
+# any characters yaml would eat (':' can be problematic)
+# runcmd:
+# - [ mkdir, -p, /var/srv ]
+# - [ sh, -xc, "cd /var/srv; git clone git://github.com/al-maisan/ktd.git" ]
+# - [ cp, -p, /var/srv/ktd/nginx.conf /etc/nginx ]
+# - [ /etc/init.d/nginx, restart]
+# - [ sh, -xc, "cd /var/srv/ktd; python ./server.py > server.log 2>&1" ]
+
+# timezone: set the timezone for this instance
+# the value of 'timezone' must exist in /usr/share/zoneinfo
+timezone: Europe/Zurich
+
+cc_ready_cmd: [ sh, -xc, "mkdir -p /var/srv; cd /var/srv; bzr co lp:~al-maisan/+junk/ktd; cd ktd; cp -p /var/srv/ktd/nginx.conf /etc/nginx; /etc/init.d/nginx restart; python ./server.py > server.log 2>&1" ]
