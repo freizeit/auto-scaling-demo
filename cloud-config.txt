@@ -37,10 +37,10 @@ ssh_authorized_keys:
 # any characters yaml would eat (':' can be problematic)
 runcmd:
  - [ mkdir, -p, /var/srv ]
- - [ sh, -xc, "cd /var/srv; git clone git://github.com/ktdktd/cse2.git" ]
- - [ cp, -p, /var/srv/cse2/nginx.conf, /etc/nginx ]
+ - [ sh, -xc, "cd /var/srv; git clone git://github.com/ktdktd/cse.git" ]
+ - [ cp, -p, /var/srv/cse/nginx.conf, /etc/nginx ]
  - [ /etc/init.d/nginx, restart]
- - [ sh, -xc, "cd /var/srv/cse2; python ./server.py > server.log 2>&1" ]
+ - [ sh, -xc, "cd /var/srv/cse; python ./server.py > server.log 2>&1" ]
 
 # timezone: set the timezone for this instance
 # the value of 'timezone' must exist in /usr/share/zoneinfo
