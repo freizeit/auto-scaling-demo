@@ -57,10 +57,8 @@ class RequestHandler(BaseHTTPRequestHandler):
     def work(self):
         """ Simulate computations. """
         start = time.time()
-        #r = randint(0, 100)
-        #loops = 447*(450+r)
-        r = randint(0, 10)
-        loops = 47*(45+r)
+        r = randint(0, 100)
+        loops = 447*(450+r)
         w = int(0)
         for i in xrange(0, loops):
             w = w ^ i
