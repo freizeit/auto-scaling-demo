@@ -1,35 +1,35 @@
 #!/bin/bash
 
-gnome-terminal --title=A --geometry 40x25 -x ./client 300 AAA 2>/dev/null
-gnome-terminal --title=B --geometry 40x25 -x ./client 240 BBB 2>/dev/null
+gnome-terminal --title=A --geometry 40x25 -x ./client 360 AAA 2>/dev/null
+gnome-terminal --title=B --geometry 40x25 -x ./client 300 BBB 2>/dev/null
 echo "A, B"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances
+as-describe-auto-scaling-instances --region eu-west-1
 sleep 65
 echo "A, B"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances
-gnome-terminal --title=C --geometry 40x25 -x ./client 205 CCC 2>/dev/null
+as-describe-auto-scaling-instances --region eu-west-1
+gnome-terminal --title=C --geometry 40x25 -x ./client 265 CCC 2>/dev/null
 echo "A, B, C"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances
+as-describe-auto-scaling-instances --region eu-west-1
 sleep 65
 echo "A, B, C"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances
-gnome-terminal --title=D --geometry 40x25 -x ./client 175 DDD 2>/dev/null
+as-describe-auto-scaling-instances --region eu-west-1
+gnome-terminal --title=D --geometry 40x25 -x ./client 235 DDD 2>/dev/null
 echo "A, B, C, D"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances
+as-describe-auto-scaling-instances --region eu-west-1
 sleep 65
 echo "A, B, C, D"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances
+as-describe-auto-scaling-instances --region eu-west-1
 
 while ((1)); do
     sleep 10
     ps ax | grep "client " | egrep -v '(dhclient|grep)'
-    as-describe-auto-scaling-instances
+    as-describe-auto-scaling-instances --region eu-west-1
     numclients=`ps ax | grep "client " | egrep -v '(dhclient|grep)' | wc -l`
     if (( numclients == 0 )); then
         break
