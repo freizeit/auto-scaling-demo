@@ -33,6 +33,7 @@ region="eu-west-1"
 ami="ami-895069fd"
 
 
+# Process the command-line arguments
 for i in $*
 do
     case $i in
@@ -67,11 +68,13 @@ do
     esac
 done
 
+# Mandatory command-line args
 if [ -z "$base_name" ]; then
     echo "!! Please specify a base name."
     exit 3
 fi
 
+# Derived parameters
 if [ -z "$elb_name" ]; then
     elb_name="elb-$base_name"
 fi
@@ -79,6 +82,9 @@ fi
 if [ -z "$azs" ]; then
     azs="${region}a"
 fi
+
+
+# Do the actual work (setup|teardown)
 
 if [ "$action" == "setup" ]; then
     if [ -z "$group" ]; then
@@ -91,7 +97,7 @@ if [ "$action" == "setup" ]; then
         --image-id $ami \
         --instance-type m1.small \
         --key aws-ec2 \
-        --user-data-file $HOME/Documents/tc2/jobs/kooaba/cse/cloud-config.txt \
+        --user-data-file $HOME/kooaba/cse/cloud-config.txt \
         --region $region
 
     as-create-auto-scaling-group "asg-$base_name" \
@@ -103,6 +109,7 @@ if [ "$action" == "setup" ]; then
         --availability-zones $azs \
         --region $region
 
+    # Scale up policy
     upp_arn=`as-put-scaling-policy "sp-up-$base_name" \
         --adjustment 1 \
         --auto-scaling-group "asg-$base_name" \
@@ -122,6 +129,7 @@ if [ "$action" == "setup" ]; then
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
 
+    # Scale down policy
     dnp_arn=`as-put-scaling-policy "sp-dn-$base_name" \
         --adjustment=-1 \
         --auto-scaling-group "asg-$base_name" \
@@ -141,6 +149,7 @@ if [ "$action" == "setup" ]; then
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
 else
+    # The teardown case
     as-delete-auto-scaling-group "asg-$base_name" \
         --force \
         --force-delete \

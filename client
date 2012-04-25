@@ -2,9 +2,10 @@
 
 if [ $# -eq 0 ]; then
     echo -n "How long should the client run? "
-    echo "Please call it as follows:"
+    echo "Please run '`basename $0`' as follows:"
     echo ""
     echo "   `basename $0` seconds-to-run"
+    exit 1
 fi
 
 declare -i now
@@ -14,10 +15,8 @@ declare -i start
 
 start=`date +"%s"`
 (( duration = "$1" ))
+# Figure out when the client should terminate
 (( end = start + duration ))
-
-echo "start: $start"
-echo "end: $end"
 
 while (( 1 )); do
     result=`curl -s http://elb-kase-648417437.eu-west-1.elb.amazonaws.com/work`
