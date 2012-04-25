@@ -103,18 +103,42 @@ if [ "$action" == "setup" ]; then
         --availability-zones $azs \
         --region $region
 
-    as-put-scaling-policy "sp-up-$base_name" \
+    upp_arn=`as-put-scaling-policy "sp-up-$base_name" \
         --adjustment 1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
         --cooldown 60 \
+        --region $region`
+
+    mon-put-metric-alarm KaseHighCPUAlarm \
+        --alarm-actions $upp_arn \
+        --metric-name CPUUtilization \
+        --namespace "AWS/EC2" \
+        --statistic Average \
+        --period 60 \
+        --evaluation-periods 1 \
+        --threshold 70 \
+        --comparison-operator GreaterThanThreshold \
+        --dimensions "Name=AutoScalingGroupName, Value=asg-kase" \
         --region $region
 
-    as-put-scaling-policy "sp-dn-$base_name" \
+    dnp_arn=`as-put-scaling-policy "sp-dn-$base_name" \
         --adjustment=-1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
         --cooldown 60 \
+        --region $region`
+
+    mon-put-metric-alarm KaseLowCPUAlarm \
+        --alarm-actions $upp_arn \
+        --metric-name CPUUtilization \
+        --namespace "AWS/EC2" \
+        --statistic Average \
+        --period 60 \
+        --evaluation-periods 1 \
+        --threshold 69 \
+        --comparison-operator LessThanThreshold \
+        --dimensions "Name=AutoScalingGroupName, Value=asg-kase" \
         --region $region
 else
     as-delete-auto-scaling-group "asg-$base_name" \
