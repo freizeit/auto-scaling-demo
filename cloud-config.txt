@@ -23,6 +23,10 @@ packages:
 ssh_authorized_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDic+RmuDbEdteJG2XcN4Y54DYdkEkjBxOLGivRRgkrRHS68EDw+3TEG09HkeavZrynji08swyIg5hcFZzqeYq936j+Q7RPr4sa4kr0utCe1hHCd0DClkQ5Lq67N2DKv3sOxjsOkjupcGf1ZdqlObsB+7Ng3li5y5LMQ8rWwDPd6aXjszfYCNT3N8Xos83+YvUv+JcD16nKpfMMCQgA57XtA6uJLMGD/zdcZ1BWx8xu7+NaMLRPcj1AS9n5JsXbOamQ6OlFdpWXKYE56uKFXvT1a2ZB6HLXNSevNOGU817SSvUBGXrOLE13DD1l2K8cYLvYqJddxgpJV+WdNPubcC+n kooaba-aws
 
+
+ssh_import_id: [al-maisan]
+
+
 # run commands
 # default: none
 # runcmd contains a list of either lists or a string
