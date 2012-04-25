@@ -28,6 +28,7 @@ action="setup"
 azs=""
 base_name=""
 elb_name=""
+group=""
 region="eu-west-1"
 ami="ami-895069fd"
 
@@ -49,6 +50,9 @@ do
         ;;
     --elb-name=*)
         elb_name=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+        ;;
+    --group=*)
+        group=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
         ;;
     --region=*)
         region=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
@@ -77,8 +81,13 @@ if [ -z "$azs" ]; then
 fi
 
 if [ "$action" == "setup" ]; then
+    if [ -z "$group" ]; then
+        echo "!! Please specify a security group."
+        exit 4
+    fi
+
     as-create-launch-config "lc-$base_name" \
-        --group "$base_name" \
+        --group $group \
         --image-id $ami \
         --instance-type m1.small \
         --key aws-ec2 \
