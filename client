@@ -20,7 +20,8 @@ echo "start: $start"
 echo "end: $end"
 
 while (( 1 )); do
-    echo curl http://elb-kase-648417437.eu-west-1.elb.amazonaws.com/work
+    result=`curl -s http://elb-kase-648417437.eu-west-1.elb.amazonaws.com/work`
+    echo $result
     sleep 1
     now=`date +"%s"`
     if (( now > end )); then
