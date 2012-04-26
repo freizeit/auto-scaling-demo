@@ -42,9 +42,9 @@ The solution provided can be tested as follows:
  1. wait a littel and run `as-describe-auto-scaling-groups asg-Beecae8U` until
     you see an output resembling this:
         
- > AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
- > INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
- > TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
+	AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
+	INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
+	TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
 
     the `InService` bit is important -- it means that the base instance
     in the auto-scaling group is up and ready for business.
