@@ -1,11 +1,11 @@
 # Auto-scaling exercise
 
-The artifacts in this repository serve to configuare and exercise an
+The artifacts in this repository serve to configure and exercise an
 auto-scaling setup in amazon's cloud:
 
  - `cloud-config.txt` configures an individual instance to listen
-   and react to the following URLs: localhost:30000/ping and
-   localhost:30000/ping. The latter is designed to create load on
+   and react to the following URLs: `localhost:30000/ping` and
+   `localhost:30000/work`. The latter is designed to create load on
    the instance so that the auto-scaling behaviour can be exercised.
   - `nginx.conf` is the nginx configuration splinter needed on the
     instance
