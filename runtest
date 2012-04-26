@@ -4,14 +4,24 @@ declare -i offset
 declare -i duration
 
 if [ $# -eq 0 ]; then
-    (( offset = 90 ))
+    (( offset = 120 ))
 else
     (( offset = "$1" ))
 fi
 
+stats_start_date=`date +"%Y-%m-%dT%H:%M:00Z"`
+echo "test run started at $stats_start_date" > last_run.stats
+
+base_instance=`as-describe-auto-scaling-instances | awk '{ print $2 }'`
+
 # Client A (delay: 0 * offset, duration: 7 * offset)
 (( duration = 7 * offset ))
 gnome-terminal --title=A --geometry 36x25 -x ./client $duration AAA 2>/dev/null
+
+date
+echo "started client A, it will run for $duration seconds; sleeping $offset seconds before starting client B"
+
+./track_instances $duration > last_run.instances &
 
 sleep $offset
 
@@ -19,16 +29,17 @@ sleep $offset
 (( duration = 4 * offset ))
 gnome-terminal --title=B --geometry 36x25 -x ./client $duration BBB 2>/dev/null
 
-sleep $offset
-
 date
-echo "A, B"
-ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances --region eu-west-1
+echo "started client B, it will run for $duration seconds; sleeping $offset seconds before starting client C"
+
+sleep $offset
 
 # Client C (delay: 2 * offset, duration: 4 * offset)
 (( duration = 4 * offset ))
 gnome-terminal --title=C --geometry 36x25 -x ./client $duration CCC 2>/dev/null
+
+date
+echo "started client C, it will run for $duration seconds; sleeping $offset seconds before starting client D"
 
 sleep $offset
 
@@ -41,23 +52,23 @@ as-describe-auto-scaling-instances --region eu-west-1
 (( duration = 1 * offset ))
 gnome-terminal --title=D --geometry 36x25 -x ./client $duration DDD 2>/dev/null
 
+date
+echo "started client D, it will run for $duration seconds"
+
 sleep $offset
 
 date
-echo "A, B, C, D"
-ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances --region eu-west-1
-
+echo "client D terminated"
 
 while ((1)); do
-    sleep 10
     date
     ps ax | grep "client " | egrep -v '(dhclient|grep)'
-    as-describe-auto-scaling-instances --region eu-west-1
-
+    sleep 15
     # Are we done? All clients terminated?
     numclients=`ps ax | grep "client " | egrep -v '(dhclient|grep)' | wc -l`
     if (( numclients == 0 )); then
         break
     fi
 done
+
+mon-get-stats --metric-name CPUUtilization --namespace AWS/EC2 --dimensions InstanceId=$base_instance --statistics Average --start-time $stats_start_date >> last_run.stats
