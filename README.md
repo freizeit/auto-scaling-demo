@@ -32,4 +32,20 @@ In order to run these tools you need to set the following environment variables:
  - `EC2_PRIVATE_KEY`
  - `EC2_CERT`
 
-Please e.g. the [EC2 starter guide](https://help.ubuntu.com/community/EC2StartersGuide) for an explanation of the above.
+Please see e.g. the [EC2 starter guide](https://help.ubuntu.com/community/EC2StartersGuide) for an explanation of the above.
+
+# Testing the solution
+
+The solution provided can be tested as follows:
+
+ 1. run `./kooaba-configure-as --base-name=Beecae8U`
+ 1. wait a littel and run `as-describe-auto-scaling-groups asg-Beecae8U` until
+    you see an output resembling this:
+        
+    AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
+    INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
+    TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
+
+# Main considerations
+
+The solution at hand a
