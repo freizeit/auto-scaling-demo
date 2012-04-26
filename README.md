@@ -46,6 +46,9 @@ The solution provided can be tested as follows:
  > INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
  > TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
 
+    the `InService` bit is important -- it means that the base instance
+    in the auto-scaling group is up and ready for business.
+
 # Main considerations
 
 The solution at hand a
