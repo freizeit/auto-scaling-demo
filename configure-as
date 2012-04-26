@@ -9,7 +9,7 @@ The command line arguments are as follows:
 
     --action=[setup|teardown]   What to do [default: "setup"]
 
-    --ami=ami           The AMI to use [default: ami-895069fd]
+    --ami=ami           The AMI to use [default: ami-a1c5fdd5]
     --azs=az1,az2       Availability zones [default "<region>a"]
     --base-name=name    Will be used to name launch config and auto-scaling
                         group.
@@ -31,7 +31,7 @@ base_name=""
 elb_name=""
 group=""
 region="eu-west-1"
-ami="ami-895069fd"
+ami="ami-a1c5fdd5"
 
 
 # Process the command-line arguments
@@ -125,7 +125,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 30 \
+        --threshold 66 \
         --comparison-operator GreaterThanThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
@@ -145,7 +145,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 29 \
+        --threshold 66 \
         --comparison-operator LessThanThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region

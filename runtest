@@ -1,41 +1,37 @@
 #!/bin/bash
 
-gnome-terminal --title=A --geometry 36x25 -x ./client 360 AAA 2>/dev/null
-gnome-terminal --title=B --geometry 36x25 -x ./client 300 BBB 2>/dev/null
+# Client A runs for 490 seconds (offset 0, 8 minutes, 10 seconds)
+gnome-terminal --title=A --geometry 36x25 -x ./client 490 AAA 2>/dev/null
+
+sleep 70
+
+# Client B runs for 280 seconds (offset 70, 4 minutes, 40 seconds)
+gnome-terminal --title=B --geometry 36x25 -x ./client 280 BBB 2>/dev/null
+
+sleep 70
 
 echo "A, B"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
 as-describe-auto-scaling-instances --region eu-west-1
 
-sleep 65
+# Client C runs for 280 seconds (offset 140, 4 minutes, 40 seconds)
+gnome-terminal --title=C --geometry 36x25 -x ./client 280 CCC 2>/dev/null
 
-echo "A, B"
-ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances --region eu-west-1
-
-gnome-terminal --title=C --geometry 36x25 -x ./client 265 CCC 2>/dev/null
+sleep 70
 
 echo "A, B, C"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
 as-describe-auto-scaling-instances --region eu-west-1
 
-sleep 65
+# Client D runs for 70 seconds (offset 210, 1 minute, 10 seconds)
+gnome-terminal --title=D --geometry 36x25 -x ./client 70 DDD 2>/dev/null
 
-echo "A, B, C"
-ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances --region eu-west-1
-
-gnome-terminal --title=D --geometry 36x25 -x ./client 235 DDD 2>/dev/null
+sleep 70
 
 echo "A, B, C, D"
 ps ax | grep "client " | egrep -v '(dhclient|grep)'
 as-describe-auto-scaling-instances --region eu-west-1
 
-sleep 65
-
-echo "A, B, C, D"
-ps ax | grep "client " | egrep -v '(dhclient|grep)'
-as-describe-auto-scaling-instances --region eu-west-1
 
 while ((1)); do
     sleep 10
