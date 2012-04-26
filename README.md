@@ -130,4 +130,4 @@ The main considerations that drove the solution at hand were:
 
  - maximum automation (staring at the AWS console does not scale).
  - reusability of the implementation artefacts e.g. inside a [juju charm](https://juju.ubuntu.com/)
- - use the auto-scaling mechanism currently recommended by AWS.
+ - use the auto-scaling mechanism [currently recommended by AWS](http://docs.amazonwebservices.com/AutoScaling/latest/DeveloperGuide/US_SetUpASLBApp.html).
