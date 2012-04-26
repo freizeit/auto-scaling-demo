@@ -41,7 +41,7 @@ to have the following tools installed and configured properly:
 
 # Testing the solution
 
-The solution at hand comes with its own test script (with this [default client timing](http://instagr.am/p/J5enj2LXJE/)) and can be tested as follows:
+The solution at hand comes with its own test script (with [this default client timing](http://instagr.am/p/J5enj2LXJE/)) and can be tested as follows:
 
  1. Check whether the auto-scaling group is already running, if yes `as-describe-auto-scaling-groups asg-Beecae8U` will show:
     <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
