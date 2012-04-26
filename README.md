@@ -134,6 +134,12 @@ The solution provided can be tested as follows:
  
     <pre><code>./kooaba-configure-as --base-name=Beecae8U --action=teardown</code></pre>
 
+# Handy commands while testing
+ - view the alarm states and actions:
+    <pre><code>while ((1)); do clear; mon-describe-alarm-history | head -n 8; sleep 30; done</code></pre>
+ - view the CPU load on the auto-scaling group:
+    <pre><code>while ((1)); do clear; mon-get-stats --metric-name CPUUtilization --namespace AWS/EC2 --dimensions AutoScalingGroupName=asg-Beecae8U --statistics Average --start-time 2012-04-26T15:19:00Z; sleep 61; done</code></pre>
+
 # Main considerations
 
 The main considerations that drove the solution at hand were:
