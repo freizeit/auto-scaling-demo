@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo -n "How long should we track instances? "
+    echo "Please run '`basename $0`' as follows:"
+    echo ""
+    echo "   `basename $0` seconds-to-run"
+    exit 1
+fi
+
+declare -i now
+declare -i duration
+declare -i end
+declare -i start
+
+start=`date +"%s"`
+(( duration = "$1" ))
+# Figure out when the client should terminate
+(( end = start + duration ))
+
+while (( 1 )); do
+    date
+    as-describe-auto-scaling-instances --region eu-west-1
+    sleep 15
+    now=`date +"%s"`
+    if (( now > end )); then
+        break
+    fi
+done
