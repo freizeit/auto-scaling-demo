@@ -3,7 +3,7 @@
 The artifacts in this repository serve to configure and exercise an
 auto-scaling setup in amazon's cloud:
 
- - `cloud-config.txt` configures an individual instance to listen
+ - `cloud-config.txt` uses [Ubuntu's CloudInit](https://help.ubuntu.com/community/CloudInit) to configure individual instances to listen
    and react to the following URLs: `localhost:30000/ping` and
    `localhost:30000/work`. The latter is designed to create load on
    the instance so that the auto-scaling behaviour can be exercised.
