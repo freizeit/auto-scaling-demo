@@ -54,7 +54,7 @@ The solution at hand comes with its own test script ([default client timing](htt
 
     the `InService` bit is important -- it means that the base instance
     in the auto-scaling group is up and ready for business.
- 1. now you can run the actual test as follows: `./runtest`. It will take approximately 12 minutes and 4 terminal windows titled `A`, `B`, `C` and `D` will be opened in the progress. If you are running a system without the `gnome-terminal` program you will need to tweak `runtest` slightly to change the terminal command.
+ 1. now you can run the actual test as follows: `./runtest`. It will take around 14 minutes and 4 terminal windows titled `A`, `B`, `C` and `D` will be opened in the progress. If you are running a system without the `gnome-terminal` program you will need to tweak `runtest` slightly to change the terminal command.
     If all goes well you should see something like:
 
     <pre><code>Thu Apr 26 16:14:48 CEST 2012
