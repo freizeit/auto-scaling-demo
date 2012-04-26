@@ -122,4 +122,7 @@ The solution provided can be tested as follows:
 
 # Main considerations
 
-The solution at hand a
+The main considerations that drove the solution at hand were:
+
+ - maximum automation (staring at the AWS console does not scale).
+ - use the auto-scaling mechanism currently recommended by AWS.
