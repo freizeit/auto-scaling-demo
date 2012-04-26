@@ -2,8 +2,8 @@
 
 help() {
 cat <<HSD
-`basename $0` initialises the auto-scaling infrastucture for the kooaba
-exercise.
+`basename $0` initialises the auto-scaling infrastucture for the
+kooaba exercise.
 
 The command line arguments are as follows:
 
@@ -14,9 +14,10 @@ The command line arguments are as follows:
     --base-name=name    Will be used to name launch config and auto-scaling
                         group.
     --elb-name=name     Name of the elastic load balancer to use
-                        [default "elb-<base-name>"]
+                        [default "Beecae8U"]
     --group=group       Name of the AWS security group to use
-    --region=region     Name of the AWS regions to use [default: eu-west-1]
+                        [default: "job-test"]
+    --region=region     Name of the AWS region to use [default: eu-west-1]
 HSD
 exit 0
 }
@@ -28,8 +29,8 @@ fi
 action="setup"
 azs=""
 base_name=""
-elb_name=""
-group=""
+elb_name="Beecae8U"
+group="job-test"
 region="eu-west-1"
 ami="ami-895069fd"
 
@@ -125,7 +126,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 30 \
+        --threshold 66 \
         --comparison-operator GreaterThanThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
@@ -145,7 +146,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 29 \
+        --threshold 65 \
         --comparison-operator LessThanThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
