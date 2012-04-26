@@ -95,6 +95,31 @@ The solution provided can be tested as follows:
     </code></pre>
     The above shows how the `i-75d82e3d` instance is added to the load balancer and goes from `Pending` to `InService` to meet the demand. Once the demand goes back to normal the auto-scaling terminates the (original) `i-47897f0f` instance and we see it going from `InService` to `Terminating` and disappearing altogether eventually.
 
+    Last but not least you may want to take a peek at the `last_run.stats` file  which shows the `CPUUtilization` statistics for the instances involved in the test:
+
+    <pre><code>test run started at 2012-04-26T14:14:00Z
+
+    i-47897f0f
+    2012-04-26 14:14:00  2.95   Percent
+    2012-04-26 14:15:00  12.67  Percent
+    2012-04-26 14:16:00  13.56  Percent
+    2012-04-26 14:17:00  24.59  Percent
+    2012-04-26 14:18:00  26.67  Percent
+    2012-04-26 14:19:00  35.93  Percent
+    2012-04-26 14:20:00  37.67  Percent
+    2012-04-26 14:21:00  47.21  Percent
+    2012-04-26 14:22:00  45.08  Percent
+    2012-04-26 14:23:00  22.0   Percent
+    2012-04-26 14:24:00  17.0   Percent
+
+    i-75d82e3d
+    2012-04-26 14:23:00  24.59  Percent
+    2012-04-26 14:24:00  17.35  Percent
+    2012-04-26 14:25:00  16.0   Percent
+    2012-04-26 14:26:00  22.6   Percent
+    2012-04-26 14:27:00  13.49  Percent
+    </code></pre>
+
 # Main considerations
 
 The solution at hand a
