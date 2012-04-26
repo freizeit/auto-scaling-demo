@@ -98,7 +98,6 @@ if [ "$action" == "setup" ]; then
         --group $group \
         --image-id $ami \
         --instance-type m1.small \
-        --key aws-ec2 \
         --user-data-file $HOME/kooaba/cse/cloud-config.txt \
         --region $region
 
