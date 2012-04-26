@@ -49,7 +49,7 @@ The solution provided can be tested as follows:
 
     the `InService` bit is important -- it means that the base instance
     in the auto-scaling group is up and ready for business.
- 1. now you can run the actual tests as follows: `./runtest`. The test will take approximately 12 minutes and 4 terminal windows titled `A`, `B`, `C` and `D` will be opened in the progress. If you are running a system without the `gnome-terminal` program you will need to tweak `runtest` slightly to change the terminal command.
+ 1. now you can run the actual test as follows: `./runtest`. It will take approximately 12 minutes and 4 terminal windows titled `A`, `B`, `C` and `D` will be opened in the progress. If you are running a system without the `gnome-terminal` program you will need to tweak `runtest` slightly to change the terminal command.
 
 # Main considerations
 
