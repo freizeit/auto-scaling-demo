@@ -9,7 +9,7 @@ The command line arguments are as follows:
 
     --action=[setup|teardown]   What to do [default: "setup"]
 
-    --ami=ami           The AMI to use [default: ami-895069fd]
+    --ami=ami           The AMI to use [default: ami-a1c5fdd5]
     --azs=az1,az2       Availability zones [default "<region>a"]
     --base-name=name    Will be used to name launch config and auto-scaling
                         group.
@@ -32,7 +32,7 @@ base_name=""
 elb_name="Beecae8U"
 group="job-test"
 region="eu-west-1"
-ami="ami-895069fd"
+ami="ami-a1c5fdd5"
 
 
 # Process the command-line arguments
@@ -116,7 +116,7 @@ if [ "$action" == "setup" ]; then
         --adjustment 1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
-        --cooldown 30 \
+        --cooldown 10 \
         --region $region`
 
     mon-put-metric-alarm KaseHighCPUAlarm \
@@ -126,8 +126,8 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 66 \
-        --comparison-operator GreaterThanThreshold \
+        --threshold 35 \
+        --comparison-operator GreaterThanOrEqualToThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
 
@@ -136,7 +136,7 @@ if [ "$action" == "setup" ]; then
         --adjustment=-1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
-        --cooldown 30 \
+        --cooldown 10 \
         --region $region`
 
     mon-put-metric-alarm KaseLowCPUAlarm \
@@ -146,8 +146,8 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 65 \
-        --comparison-operator LessThanThreshold \
+        --threshold 35 \
+        --comparison-operator LessThanOrEqualToThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
 else
