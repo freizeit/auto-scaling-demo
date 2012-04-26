@@ -4,7 +4,7 @@ declare -i offset
 declare -i duration
 
 if [ $# -eq 0 ]; then
-    (( offset = 90 ))
+    (( offset = 120 ))
 else
     (( offset = "$1" ))
 fi
@@ -12,8 +12,8 @@ fi
 stats_start_date=`date --utc +"%Y-%m-%dT%H:%M:00Z"`
 echo "test run started at $stats_start_date" > last_run.stats
 
-# Client A (delay: 0 * offset, duration: 8 * offset)
-(( duration = 8 * offset ))
+# Client A (delay: 0 * offset, duration: 7 * offset)
+(( duration = 7 * offset ))
 gnome-terminal --title=A --geometry 36x25 -x ./client $duration AAA 2>/dev/null
 
 echo ""
@@ -24,8 +24,8 @@ echo "started client A, it will run for $duration seconds; sleeping $offset seco
 
 sleep $offset
 
-# Client B (delay: 1 * offset, duration: 5 * offset)
-(( duration = 5 * offset ))
+# Client B (delay: 1 * offset, duration: 4 * offset)
+(( duration = 4 * offset ))
 gnome-terminal --title=B --geometry 36x25 -x ./client $duration BBB 2>/dev/null
 
 echo ""
@@ -34,8 +34,8 @@ echo "started client B, it will run for $duration seconds; sleeping $offset seco
 
 sleep $offset
 
-# Client C (delay: 2 * offset, duration: 5 * offset)
-(( duration = 5 * offset ))
+# Client C (delay: 2 * offset, duration: 4 * offset)
+(( duration = 4 * offset ))
 gnome-terminal --title=C --geometry 36x25 -x ./client $duration CCC 2>/dev/null
 
 echo ""
@@ -44,8 +44,8 @@ echo "started client C, it will run for $duration seconds; sleeping $offset seco
 
 sleep $offset
 
-# Client D (delay: 3 * offset, duration: 2 * offset)
-(( duration = 2 * offset ))
+# Client D (delay: 3 * offset, duration: 1 * offset)
+(( duration = 1 * offset ))
 gnome-terminal --title=D --geometry 36x25 -x ./client $duration DDD 2>/dev/null
 
 echo ""
