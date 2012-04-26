@@ -50,6 +50,31 @@ The solution provided can be tested as follows:
     the `InService` bit is important -- it means that the base instance
     in the auto-scaling group is up and ready for business.
  1. now you can run the actual test as follows: `./runtest`. It will take approximately 12 minutes and 4 terminal windows titled `A`, `B`, `C` and `D` will be opened in the progress. If you are running a system without the `gnome-terminal` program you will need to tweak `runtest` slightly to change the terminal command.
+    If all goes well you should see something like:
+
+    <pre><code>Thu Apr 26 16:14:48 CEST 2012
+    started client A, it will run for 840 seconds; sleeping 120 seconds before starting client B
+
+    Thu Apr 26 16:16:48 CEST 2012
+    started client B, it will run for 480 seconds; sleeping 120 seconds before starting client C
+
+    Thu Apr 26 16:18:48 CEST 2012
+    started client C, it will run for 480 seconds; sleeping 120 seconds before starting client D
+
+    Thu Apr 26 16:20:48 CEST 2012
+    started client D, it will run for 120 seconds
+
+    Thu Apr 26 16:22:48 CEST 2012
+    client D terminated
+
+    Thu Apr 26 16:22:48 CEST 2012
+     5237 pts/9    Ss+    0:00 /bin/bash ./client 840 AAA
+     5689 pts/10   Ss+    0:00 /bin/bash ./client 480 BBB
+     6397 pts/16   Ss+    0:00 /bin/bash ./client 480 CCC
+     7389 pts/17   Ss+    0:00 /bin/bash ./client 120 DDD
+
+     ...
+    </code></pre>
 
 # Main considerations
 
