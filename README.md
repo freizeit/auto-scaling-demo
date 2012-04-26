@@ -147,6 +147,6 @@ The solution at hand comes with its own test script (with this [default client t
 
 The main considerations that drove the solution at hand were:
 
- - maximum automation (staring at the AWS console does not scale).
- - reusability of the implementation artefacts e.g. inside a [juju charm](https://juju.ubuntu.com/)
+ - maximum automation (staring at the AWS console does *not* scale).
+ - reusability of the implementation artifacts e.g. inside a [juju charm](https://juju.ubuntu.com/)
  - using the auto-scaling mechanism [currently recommended by AWS](http://docs.amazonwebservices.com/AutoScaling/latest/DeveloperGuide/US_SetUpASLBApp.html).
