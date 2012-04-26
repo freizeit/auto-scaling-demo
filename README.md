@@ -93,6 +93,8 @@ The solution provided can be tested as follows:
     Thu Apr 26 16:26:07 CEST 2012
     INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
     </code></pre>
+    The above shows how the `i-75d82e3d` instance is added to the load balancer and goes from `Pending` to `InService` to meet the demand. Once the demand goes back to normal the auto-scaling terminates the (original) `i-47897f0f` instance and we see it going from `InService` to `Terminating` and disappearing altogether eventually.
+
 # Main considerations
 
 The solution at hand a
