@@ -11,8 +11,8 @@ auto-scaling setup in amazon's cloud:
     instance
   - `server.py` is the backend script that reacts to 'ping' and 'work'
     requests. The latter creates the load.
- - `kooaba-configure-as` is a bash script to use to set up or tear down
-   the auto-scaling configuration
+ - `kooaba-configure-as` is the bash script that should be used to set
+    up or tear down the auto-scaling configuration
  - `client` is another bash script that simulates a client
  - `runtest` is a bash script that runs 4 clients in a certain way in
    order to exercise the auto-scaling setup. Once it terminates it will
@@ -119,6 +119,10 @@ The solution provided can be tested as follows:
     2012-04-26 14:26:00  22.6   Percent
     2012-04-26 14:27:00  13.49  Percent
     </code></pre>
+
+ 1. Last but not least the following comnmand should be used to tear down the auto-scaling configuration:
+ 
+    <pre><code>./kooaba-configure-as --base-name=Beecae8U --action=teardown</code></pre>
 
 # Main considerations
 
