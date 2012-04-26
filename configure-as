@@ -125,7 +125,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 40 \
+        --threshold 35 \
         --comparison-operator GreaterThanOrEqualToThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
@@ -145,7 +145,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 40 \
+        --threshold 35 \
         --comparison-operator LessThanOrEqualToThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
