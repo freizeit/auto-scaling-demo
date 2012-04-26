@@ -49,8 +49,8 @@ The solution at hand comes with its own test script ([default client timing](htt
     TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
     </code></pre>
 
- 1. Otherwise create it via `./kooaba-configure-as --base-name=Beecae8U` ..
- 1. .. and wait a little and run until `as-describe-auto-scaling-groups asg-Beecae8U` shows:
+ 1. Otherwise create it via `./kooaba-configure-as --base-name=Beecae8U` and
+    wait a little until `as-describe-auto-scaling-groups asg-Beecae8U` shows:
         
     <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
 	INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
