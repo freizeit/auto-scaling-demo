@@ -39,17 +39,17 @@ Please see e.g. the [EC2 starter guide](https://help.ubuntu.com/community/EC2Sta
 The solution provided can be tested as follows:
 
  1. run `./kooaba-configure-as --base-name=Beecae8U`
- 1. wait a littel and run `as-describe-auto-scaling-groups asg-Beecae8U` until
+ 1. wait a little and run `as-describe-auto-scaling-groups asg-Beecae8U` until
     you see an output resembling this:
         
-    <pre><code>
-	AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
+    <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
 	INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
 	TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
     </code></pre>
 
     the `InService` bit is important -- it means that the base instance
     in the auto-scaling group is up and ready for business.
+ 1. now you can run the actual tests as follows: `./runtest`
 
 # Main considerations
 
