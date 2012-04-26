@@ -34,6 +34,13 @@ In order to run these tools you need to set the following environment variables:
 
 Please see e.g. the [EC2 starter guide](https://help.ubuntu.com/community/EC2StartersGuide) for an explanation of the above.
 
+# Prerequisites
+In order to make use of the artifacts in this repository you will need
+to have the following tools installed and configured properly:
+ 1. [Amazon EC2 API Tools](http://aws.amazon.com/developertools/351)
+ 1. [Auto Scaling Command Line Tool](http://aws.amazon.com/developertools/2535)
+ 1. [Amazon CloudWatch Command Line Tool](http://aws.amazon.com/developertools/2534)
+
 # Testing the solution
 
 The solution provided can be tested as follows:
