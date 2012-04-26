@@ -6,8 +6,7 @@ The artifacts in this repository serve the purpose to configure and exercise an 
    and react to the following URLs: `localhost:30000/ping` and
    `localhost:30000/work`. The latter is designed to create load on
    the instance so that the auto-scaling behaviour can be exercised.
-  - `nginx.conf` is the nginx configuration splinter needed on the
-    instance
+  - `nginx.conf` is the nginx configuration needed on the instance
   - `server.py` is the backend script that reacts to 'ping' and 'work'
     requests. The latter creates the load.
  - `kooaba-configure-as` is the bash script that should be used to set
