@@ -127,6 +127,9 @@ The solution provided can be tested as follows:
     2012-04-26 14:27:00  13.49  Percent
     </code></pre>
 
+   If you are really *curious* take a look at the `last_run.alarms` file
+   as well ;-)
+
  1. Finally, the following comnmand should be used to tear down the auto-scaling configuration:
  
     <pre><code>./kooaba-configure-as --base-name=Beecae8U --action=teardown</code></pre>
