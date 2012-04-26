@@ -41,7 +41,7 @@ to have the following tools installed and configured properly:
 
 # Testing the solution
 
-The solution provided can be tested as follows:
+The solution at hand comes with its own test script ([default client timing](http://instagr.am/p/J5enj2LXJE/)) and can be tested as follows:
 
  1. run `./kooaba-configure-as --base-name=Beecae8U`
  1. wait a little and run `as-describe-auto-scaling-groups asg-Beecae8U` until
