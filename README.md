@@ -12,7 +12,7 @@ The artifacts in this repository serve the purpose to configure and exercise an 
  - `kooaba-configure-as` is the bash script that should be used to set
     up or tear down the auto-scaling configuration
  - `client` is a bash script that simulates a client
- - `runtest` is a bash script that runs 4 clients in a certain way in
+ - `runtest` is a bash script that runs [4 clients like this](http://instagr.am/p/J5enj2LXJE/) in
    order to exercise the auto-scaling setup. Once it terminates it will
    write the following files:
    - `last_run.alarms`: the auto-scaling alarm history
