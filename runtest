@@ -9,7 +9,6 @@ else
     (( offset = "$1" ))
 fi
 
-base_instance=`as-describe-auto-scaling-instances | awk '{ print $2 }'`
 stats_start_date=`date --utc +"%Y-%m-%dT%H:%M:00Z"`
 echo "test run started at $stats_start_date" > last_run.stats
 
@@ -71,4 +70,10 @@ while ((1)); do
     fi
 done
 
-mon-get-stats --metric-name CPUUtilization --namespace AWS/EC2 --dimensions InstanceId=$base_instance --statistics Average --start-time $stats_start_date >> last_run.stats
+for iid in `grep '^INSTANCE ' last_run.instances | sort -u | awk '{ print $2 }' | sort -u`; do
+    echo "" >> last_run.stats
+    echo $iid >> last_run.stats
+    mon-get-stats --metric-name CPUUtilization --namespace AWS/EC2 --dimensions InstanceId=$iid --statistics Average --start-time $stats_start_date >> last_run.stats
+done
+
+mon-describe-alarm-history | head -n 50 > last_run.alarms
