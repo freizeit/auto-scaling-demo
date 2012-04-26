@@ -123,9 +123,9 @@ if [ "$action" == "setup" ]; then
         --metric-name CPUUtilization \
         --namespace "AWS/EC2" \
         --statistic Average \
-        --period 60 \
+        --period 30 \
         --evaluation-periods 1 \
-        --threshold 66 \
+        --threshold 40 \
         --comparison-operator GreaterThanThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
@@ -143,9 +143,9 @@ if [ "$action" == "setup" ]; then
         --metric-name CPUUtilization \
         --namespace "AWS/EC2" \
         --statistic Average \
-        --period 60 \
+        --period 30 \
         --evaluation-periods 1 \
-        --threshold 66 \
+        --threshold 40 \
         --comparison-operator LessThanThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
