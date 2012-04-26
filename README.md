@@ -43,9 +43,14 @@ to have the following tools installed and configured properly:
 
 The solution at hand comes with its own test script ([default client timing](http://instagr.am/p/J5enj2LXJE/)) and can be tested as follows:
 
- 1. run `./kooaba-configure-as --base-name=Beecae8U`
- 1. wait a little and run `as-describe-auto-scaling-groups asg-Beecae8U` until
-    you see an output resembling this:
+ 1. Check whether the auto-scaling group is already running, if yes `as-describe-auto-scaling-groups asg-Beecae8U` will show:
+    <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
+    INSTANCE  i-e14bbda9  eu-west-1a  InService  Healthy  lc-Beecae8U
+    TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
+    </code></pre>
+
+ 1. Otherwise create it via `./kooaba-configure-as --base-name=Beecae8U` ..
+ 1. .. and wait a little and run until `as-describe-auto-scaling-groups asg-Beecae8U` shows:
         
     <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
 	INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
