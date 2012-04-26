@@ -75,7 +75,24 @@ The solution provided can be tested as follows:
 
      ...
     </code></pre>
+    However, the main "evidence" that the auto-scaling worked is in the `last_run.instances` file which should resemble the following:
 
+    <pre><code>Thu Apr 26 16:21:18 CEST 2012
+    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    Thu Apr 26 16:21:36 CEST 2012
+    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  Pending    HEALTHY  lc-Beecae8U
+    ...
+    Thu Apr 26 16:22:29 CEST 2012
+    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    ...
+    Thu Apr 26 16:25:49 CEST 2012
+    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  Terminating  HEALTHY  lc-Beecae8U
+    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService    HEALTHY  lc-Beecae8U
+    Thu Apr 26 16:26:07 CEST 2012
+    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    </code></pre>
 # Main considerations
 
 The solution at hand a
