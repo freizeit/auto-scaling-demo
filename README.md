@@ -22,3 +22,14 @@ auto-scaling setup in amazon's cloud:
      while the test was in progress
    - `last_run.stats`: a snapshot of the CPU load statistic while the test
      was running
+ - `track_instances`: the script that is actually producing the
+   `last_run.instances` file.
+
+In order to run these tools you need to set the following environment variables:
+
+ - `EC2_ACCESS_KEY`
+ - `EC2_SECRET_ACCESS_KEY`
+ - `EC2_PRIVATE_KEY`
+ - `EC2_CERT`
+
+Please e.g. the [EC2 starter guide](https://help.ubuntu.com/community/EC2StartersGuide) for an explanation of the above.
