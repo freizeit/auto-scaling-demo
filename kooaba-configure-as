@@ -9,7 +9,7 @@ The command line arguments are as follows:
 
     --action=[setup|teardown]   What to do [default: "setup"]
 
-    --ami=ami           The AMI to use [default: ami-a1c5fdd5]
+    --ami=ami           The AMI to use [default: ami-895069fd]
     --azs=az1,az2       Availability zones [default "<region>a"]
     --base-name=name    Will be used to name launch config and auto-scaling
                         group.
@@ -32,7 +32,7 @@ base_name=""
 elb_name="Beecae8U"
 group="job-test"
 region="eu-west-1"
-ami="ami-a1c5fdd5"
+ami="ami-895069fd"
 
 
 # Process the command-line arguments
