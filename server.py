@@ -37,6 +37,9 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/ping':
             self.respond(httplib.OK, 'pong')
+        if self.path == '/freeze':
+            time.sleep(300)
+            self.respond(httplib.OK, 'yawn')
         elif self.path == '/work':
             self.work()
         else:

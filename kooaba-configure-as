@@ -99,6 +99,8 @@ if [ "$action" == "setup" ]; then
         --image-id $ami \
         --instance-type m1.small \
         --user-data-file $HOME/kooaba/cse/cloud-config.txt \
+        –-health-check-type ELB \
+        –-grace-period 300 \
         --region $region
 
     as-create-auto-scaling-group "asg-$base_name" \
