@@ -99,6 +99,8 @@ if [ "$action" == "setup" ]; then
         --instance-type m1.small \
         --key aws-ec2 \
         --user-data-file $HOME/kooaba/cse/cloud-config.txt \
+        –-health-check-type ELB \
+        –-grace-period 300 \
         --region $region
 
     as-create-auto-scaling-group "asg-$base_name" \
@@ -111,11 +113,11 @@ if [ "$action" == "setup" ]; then
         --region $region
 
     # Scale up policy
-    upp_arn=`as-put-scaling-policy "sp-up-$base_name" \
+    upp_arn=`as-put-scaling-policy "sp-UP-$base_name" \
         --adjustment 1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
-        --cooldown 10 \
+        --cooldown 60 \
         --region $region`
 
     mon-put-metric-alarm KaseHighCPUAlarm \
@@ -131,11 +133,11 @@ if [ "$action" == "setup" ]; then
         --region $region
 
     # Scale down policy
-    dnp_arn=`as-put-scaling-policy "sp-dn-$base_name" \
+    dnp_arn=`as-put-scaling-policy "sp-DOWN-$base_name" \
         --adjustment=-1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
-        --cooldown 10 \
+        --cooldown 60 \
         --region $region`
 
     mon-put-metric-alarm KaseLowCPUAlarm \
@@ -158,11 +160,11 @@ else
     as-delete-launch-config "lc-$base_name" \
         --force \
         --region $region
-    as-delete-policy "sp-up-$base_name" \
+    as-delete-policy "sp-UP-$base_name" \
         --force \
         --auto-scaling-group "asg-$base_name" \
         --region $region
-    as-delete-policy "sp-dn-$base_name" \
+    as-delete-policy "sp-DOWN-$base_name" \
         --force \
         --auto-scaling-group "asg-$base_name" \
         --region $region
