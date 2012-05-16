@@ -106,8 +106,8 @@ if [ "$action" == "setup" ]; then
     as-create-auto-scaling-group "asg-$base_name" \
         --launch-configuration "lc-$base_name" \
         --load-balancers $elb_name \
-        --min-size 1 \
-        --max-size 2 \
+        --min-size 2 \
+        --max-size 4 \
         --tag "k=name, v=$base_name, p=true" \
         --availability-zones $azs \
         --region $region
