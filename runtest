@@ -1,20 +1,58 @@
 #!/bin/bash
 
+# set -x
+
 declare -i offset
 declare -i duration
 
+help() {
+cat <<HSD
+`basename $0` runs the auto-scaling demo
+
+The command line arguments are as follows:
+
+    --offset=N          Timing offset parameter for the clients who create
+                        the load on the server [default: 120 secs]
+
+    --elb-url=URL       The URL of the elastic load balancer through which
+                        requests are to be sent.
+HSD
+exit 0
+}
+
 if [ $# -eq 0 ]; then
-    (( offset = 120 ))
-else
-    (( offset = "$1" ))
+    help
 fi
+
+offset=120
+elb_url=""
+
+# Process the command-line arguments
+for i in $*
+do
+    case $i in
+    --offset=*)
+        offset=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+        ;;
+    --elb-url=*)
+        elb_url=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+        ;;
+    -h|--help)
+        help
+        ;;
+    *)
+        echo "!! Uknown option: " $i
+        exit 2
+        ;;
+    esac
+done
 
 stats_start_date=`date --utc +"%Y-%m-%dT%H:%M:00Z"`
 echo "test run started at $stats_start_date" > last_run.stats
 
 # Client A (delay: 0 * offset, duration: 7 * offset)
 (( duration = 7 * offset ))
-gnome-terminal --title=A --geometry 36x25 -x ./client $duration AAA 2>/dev/null
+gnome-terminal --title=A --geometry 36x25 -x ./client $duration $elb_url AAA 2>/dev/null
 
 echo ""
 date
@@ -26,7 +64,7 @@ sleep $offset
 
 # Client B (delay: 1 * offset, duration: 4 * offset)
 (( duration = 4 * offset ))
-gnome-terminal --title=B --geometry 36x25 -x ./client $duration BBB 2>/dev/null
+gnome-terminal --title=B --geometry 36x25 -x ./client $duration $elb_url BBB 2>/dev/null
 
 echo ""
 date
@@ -36,7 +74,7 @@ sleep $offset
 
 # Client C (delay: 2 * offset, duration: 4 * offset)
 (( duration = 4 * offset ))
-gnome-terminal --title=C --geometry 36x25 -x ./client $duration CCC 2>/dev/null
+gnome-terminal --title=C --geometry 36x25 -x ./client $duration $elb_url CCC 2>/dev/null
 
 echo ""
 date
@@ -46,7 +84,7 @@ sleep $offset
 
 # Client D (delay: 3 * offset, duration: 1 * offset)
 (( duration = 1 * offset ))
-gnome-terminal --title=D --geometry 36x25 -x ./client $duration DDD 2>/dev/null
+gnome-terminal --title=D --geometry 36x25 -x ./client $duration $elb_url DDD 2>/dev/null
 
 echo ""
 date

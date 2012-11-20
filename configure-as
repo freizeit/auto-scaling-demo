@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# set -x
+
 help() {
 cat <<HSD
 `basename $0` initialises the auto-scaling infrastucture for the kooaba
@@ -9,13 +11,14 @@ The command line arguments are as follows:
 
     --action=[setup|teardown]   What to do [default: "setup"]
 
-    --ami=ami           The AMI to use [default: ami-a1c5fdd5]
+    --ami=ami           The AMI to use [default: ami-3bc7c54f]
     --azs=az1,az2       Availability zones [default "<region>a"]
     --base-name=name    Will be used to name launch config and auto-scaling
                         group.
     --elb-name=name     Name of the elastic load balancer to use
                         [default "elb-<base-name>"]
     --group=group       Name of the AWS security group to use
+                        [default: rax-ast-demo-worker]
     --region=region     Name of the AWS regions to use [default: eu-west-1]
 HSD
 exit 0
@@ -28,10 +31,10 @@ fi
 action="setup"
 azs=""
 base_name=""
-elb_name=""
-group=""
+elb_name="lb-rax-ast-demo"
+group="rax-ast-demo-worker"
 region="eu-west-1"
-ami="ami-a1c5fdd5"
+ami="ami-3bc7c54f"
 
 
 # Process the command-line arguments
@@ -99,17 +102,17 @@ if [ "$action" == "setup" ]; then
         --instance-type m1.small \
         --key aws-ec2 \
         --user-data-file $HOME/kooaba/cse/cloud-config.txt \
-        –-health-check-type ELB \
-        –-grace-period 300 \
         --region $region
 
     as-create-auto-scaling-group "asg-$base_name" \
         --launch-configuration "lc-$base_name" \
-        --load-balancers $elb_name \
-        --min-size 2 \
+        --min-size 1 \
         --max-size 4 \
         --tag "k=name, v=$base_name, p=true" \
         --availability-zones $azs \
+        --health-check-type ELB \
+        --grace-period 60 \
+        --load-balancers $elb_name \
         --region $region
 
     # Scale up policy
