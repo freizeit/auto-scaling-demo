@@ -4,8 +4,7 @@
 
 help() {
 cat <<HSD
-`basename $0` initialises the auto-scaling infrastucture for the kooaba
-exercise.
+`basename $0` initialises the infrastucture for the aws auto-scaling demo.
 
 The command line arguments are as follows:
 
@@ -101,7 +100,7 @@ if [ "$action" == "setup" ]; then
         --image-id $ami \
         --instance-type m1.small \
         --key aws-ec2 \
-        --user-data-file $HOME/kooaba/cse/cloud-config.txt \
+        --user-data-file cloud-config.txt \
         --region $region
 
     as-create-auto-scaling-group "asg-$base_name" \
