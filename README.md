@@ -9,7 +9,7 @@ The artifacts in this repository serve the purpose to configure and exercise an 
   - `nginx.conf` is the nginx configuration needed on the instance
   - `server.py` is the backend script that reacts to 'ping' and 'work'
     requests. The latter creates the load.
- - `kooaba-configure-as` is the bash script that should be used to set
+ - `configure-as` is the bash script that should be used to set
     up or tear down the auto-scaling configuration
  - `client` is a bash script that simulates a client
  - `runtest` is a bash script that runs [4 clients like this](http://instagr.am/p/J5enj2LXJE/) in
@@ -43,18 +43,18 @@ to have the following tools installed and configured properly:
 
 The solution at hand comes with its own test script (with [this default client timing](http://instagr.am/p/J5enj2LXJE/)) and can be tested as follows:
 
- 1. Check whether the auto-scaling group is already running, if yes `as-describe-auto-scaling-groups asg-Beecae8U` will show:
-    <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
-    INSTANCE  i-e14bbda9  eu-west-1a  InService  Healthy  lc-Beecae8U
-    TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
+ 1. Check whether the auto-scaling group is already running, if yes `as-describe-auto-scaling-groups asg-rax-ast-demo` will show:
+    <pre><code>AUTO-SCALING-GROUP  asg-rax-ast-demo  lc-rax-ast-demo  eu-west-1a  rax-ast-demo  1  2  1
+    INSTANCE  i-e14bbda9  eu-west-1a  InService  Healthy  lc-rax-ast-demo
+    TAG  asg-rax-ast-demo  auto-scaling-group  name  rax-ast-demo  true
     </code></pre>
 
- 1. Otherwise create it via `./kooaba-configure-as --base-name=Beecae8U` and
-    wait a little until `as-describe-auto-scaling-groups asg-Beecae8U` shows:
+ 1. Otherwise create it via `./configure-as --base-name=rax-ast-demo` and
+    wait a little until `as-describe-auto-scaling-groups asg-rax-ast-demo` shows:
         
-    <pre><code>AUTO-SCALING-GROUP  asg-Beecae8U  lc-Beecae8U  eu-west-1a  Beecae8U  1  2  1
-	INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-Beecae8U
-	TAG  asg-Beecae8U  auto-scaling-group  name  Beecae8U  true
+    <pre><code>AUTO-SCALING-GROUP  asg-rax-ast-demo  lc-rax-ast-demo  eu-west-1arax-ast-demo  1  4  1
+	INSTANCE  i-47897f0f  eu-west-1a  InService  Healthy  lc-rax-ast-demo
+	TAG  asg-rax-ast-demo  auto-scaling-group  name  rax-ast-demo  true
     </code></pre>
 
     the `InService` bit is important -- it means that the base instance
@@ -62,22 +62,22 @@ The solution at hand comes with its own test script (with [this default client t
  1. now you can run the actual test as follows: `./runtest`. It will take around 14 minutes and 4 terminal windows titled `A`, `B`, `C` and `D` will be opened in the progress. If you are running a system without the `gnome-terminal` program you will need to tweak `runtest` slightly to change the terminal command.
     If all goes well you should see something like:
 
-    <pre><code>Thu Apr 26 16:14:48 CEST 2012
+    <pre><code>Thu Nov 20 16:14:48 CEST 2012
     started client A, it will run for 840 seconds; sleeping 120 seconds before starting client B
 
-    Thu Apr 26 16:16:48 CEST 2012
+    Thu Nov 20 16:16:48 CEST 2012
     started client B, it will run for 480 seconds; sleeping 120 seconds before starting client C
 
-    Thu Apr 26 16:18:48 CEST 2012
+    Thu Nov 20 16:18:48 CEST 2012
     started client C, it will run for 480 seconds; sleeping 120 seconds before starting client D
 
-    Thu Apr 26 16:20:48 CEST 2012
+    Thu Nov 20 16:20:48 CEST 2012
     started client D, it will run for 120 seconds
 
-    Thu Apr 26 16:22:48 CEST 2012
+    Thu Nov 20 16:22:48 CEST 2012
     client D terminated
 
-    Thu Apr 26 16:22:48 CEST 2012
+    Thu Nov 20 16:22:48 CEST 2012
      5237 pts/9    Ss+    0:00 /bin/bash ./client 840 AAA
      5689 pts/10   Ss+    0:00 /bin/bash ./client 480 BBB
      6397 pts/16   Ss+    0:00 /bin/bash ./client 480 CCC
@@ -87,47 +87,47 @@ The solution at hand comes with its own test script (with [this default client t
     </code></pre>
     However, the main "evidence" that the auto-scaling worked is in the `last_run.instances` file which should resemble the following:
 
-    <pre><code>Thu Apr 26 16:21:18 CEST 2012
-    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
-    Thu Apr 26 16:21:36 CEST 2012
-    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
-    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  Pending    HEALTHY  lc-Beecae8U
+    <pre><code>Thu Nov 20 16:21:18 CEST 2012
+    INSTANCE  i-47897f0f  asg-rax-ast-demo  eu-west-1a  InService  HEALTHY  lc-rax-ast-demo
+    Thu Nov 20 16:21:36 CEST 2012
+    INSTANCE  i-47897f0f  asg-rax-ast-demo  eu-west-1a  InService  HEALTHY  lc-rax-ast-demo
+    INSTANCE  i-75d82e3d  asg-rax-ast-demo  eu-west-1a  Pending    HEALTHY  lc-rax-ast-demo
     ...
-    Thu Apr 26 16:22:29 CEST 2012
-    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
-    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    Thu Nov 20 16:22:29 CEST 2012
+    INSTANCE  i-47897f0f  asg-rax-ast-demo  eu-west-1a  InService  HEALTHY  lc-rax-ast-demo
+    INSTANCE  i-75d82e3d  asg-rax-ast-demo  eu-west-1a  InService  HEALTHY  lc-rax-ast-demo
     ...
-    Thu Apr 26 16:25:49 CEST 2012
-    INSTANCE  i-47897f0f  asg-Beecae8U  eu-west-1a  Terminating  HEALTHY  lc-Beecae8U
-    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService    HEALTHY  lc-Beecae8U
-    Thu Apr 26 16:26:07 CEST 2012
-    INSTANCE  i-75d82e3d  asg-Beecae8U  eu-west-1a  InService  HEALTHY  lc-Beecae8U
+    Thu Nov 20 16:25:49 CEST 2012
+    INSTANCE  i-47897f0f  asg-rax-ast-demo  eu-west-1a  Terminating  HEALTHY  lc-rax-ast-demo
+    INSTANCE  i-75d82e3d  asg-rax-ast-demo  eu-west-1a  InService    HEALTHY  lc-rax-ast-demo
+    Thu Nov 20 16:26:07 CEST 2012
+    INSTANCE  i-75d82e3d  asg-rax-ast-demo  eu-west-1a  InService  HEALTHY  lc-rax-ast-demo
     </code></pre>
     The above shows how the `i-75d82e3d` instance is added to the load balancer and goes from `Pending` to `InService` to meet the demand. Once the demand goes back to normal the auto-scaling terminates the (original) `i-47897f0f` instance and we see it going from `InService` to `Terminating` and disappearing altogether eventually.
 
     Last but not least you may want to take a peek at the `last_run.stats` file  which shows the `CPUUtilization` statistics for the instances involved in the test:
 
-    <pre><code>test run started at 2012-04-26T14:14:00Z
+    <pre><code>test run started at 2012-11-20T14:14:00Z
 
     i-47897f0f
-    2012-04-26 14:14:00  2.95   Percent
-    2012-04-26 14:15:00  12.67  Percent
-    2012-04-26 14:16:00  13.56  Percent
-    2012-04-26 14:17:00  24.59  Percent
-    2012-04-26 14:18:00  26.67  Percent
-    2012-04-26 14:19:00  35.93  Percent
-    2012-04-26 14:20:00  37.67  Percent
-    2012-04-26 14:21:00  47.21  Percent
-    2012-04-26 14:22:00  45.08  Percent
-    2012-04-26 14:23:00  22.0   Percent
-    2012-04-26 14:24:00  17.0   Percent
+    2012-11-20 14:14:00  2.95   Percent
+    2012-11-20 14:15:00  12.67  Percent
+    2012-11-20 14:16:00  13.56  Percent
+    2012-11-20 14:17:00  24.59  Percent
+    2012-11-20 14:18:00  26.67  Percent
+    2012-11-20 14:19:00  35.93  Percent
+    2012-11-20 14:20:00  37.67  Percent
+    2012-11-20 14:21:00  47.21  Percent
+    2012-11-20 14:22:00  45.08  Percent
+    2012-11-20 14:23:00  22.0   Percent
+    2012-11-20 14:24:00  17.0   Percent
 
     i-75d82e3d
-    2012-04-26 14:23:00  24.59  Percent
-    2012-04-26 14:24:00  17.35  Percent
-    2012-04-26 14:25:00  16.0   Percent
-    2012-04-26 14:26:00  22.6   Percent
-    2012-04-26 14:27:00  13.49  Percent
+    2012-11-20 14:23:00  24.59  Percent
+    2012-11-20 14:24:00  17.35  Percent
+    2012-11-20 14:25:00  16.0   Percent
+    2012-11-20 14:26:00  22.6   Percent
+    2012-11-20 14:27:00  13.49  Percent
     </code></pre>
 
    If you are really *curious* take a look at the `last_run.alarms` file
@@ -135,13 +135,13 @@ The solution at hand comes with its own test script (with [this default client t
 
  1. Finally, the following command should be used to tear down the auto-scaling configuration:
  
-    <pre><code>./kooaba-configure-as --base-name=Beecae8U --action=teardown</code></pre>
+    <pre><code>./configure-as --base-name=rax-ast-demo --action=teardown</code></pre>
 
 # Handy commands while testing
  - view the alarm states and actions:
     <pre><code>while ((1)); do clear; mon-describe-alarm-history | head -n 8; sleep 30; done</code></pre>
  - view the CPU load on the auto-scaling group:
-    <pre><code>while ((1)); do clear; mon-get-stats --metric-name CPUUtilization --namespace AWS/EC2 --dimensions AutoScalingGroupName=asg-Beecae8U --statistics Average --start-time 2012-04-26T15:19:00Z; sleep 29; done</code></pre>
+    <pre><code>while ((1)); do clear; mon-get-stats --metric-name CPUUtilization --namespace AWS/EC2 --dimensions AutoScalingGroupName=asg-rax-ast-demo --statistics Average --start-time 2012-11-20T15:19:00Z; sleep 29; done</code></pre>
 
 # Main considerations
 
