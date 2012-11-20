@@ -21,7 +21,7 @@ start=`date +"%s"`
 while (( 1 )); do
     result=`curl -s http://$2/work`
     echo $result
-    sleep 0.2
+    sleep 0.02
     now=`date +"%s"`
     if (( now > end )); then
         break

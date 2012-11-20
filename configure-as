@@ -129,14 +129,14 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 30 \
+        --threshold 50 \
         --comparison-operator GreaterThanOrEqualToThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
 
     # Scale down policy
     dnp_arn=`as-put-scaling-policy "sp-DOWN-$base_name" \
-        --adjustment=-2 \
+        --adjustment=-1 \
         --auto-scaling-group "asg-$base_name" \
         --type ChangeInCapacity \
         --cooldown 60 \
@@ -149,7 +149,7 @@ if [ "$action" == "setup" ]; then
         --statistic Average \
         --period 60 \
         --evaluation-periods 1 \
-        --threshold 50 \
+        --threshold 40 \
         --comparison-operator LessThanOrEqualToThreshold \
         --dimensions "AutoScalingGroupName=asg-$base_name" \
         --region $region
