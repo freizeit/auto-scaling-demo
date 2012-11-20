@@ -44,7 +44,7 @@ to have the following tools installed and configured properly:
 The solution at hand comes with its own test script (with [this default client timing](http://instagr.am/p/J5enj2LXJE/)) and can be tested as follows:
 
  1. Check whether the auto-scaling group is already running, if yes `as-describe-auto-scaling-groups asg-rax-ast-demo` will show:
-    <pre><code>AUTO-SCALING-GROUP  asg-rax-ast-demo  lc-rax-ast-demo  eu-west-1a  rax-ast-demo  1  2  1
+    <pre><code>AUTO-SCALING-GROUP  asg-rax-ast-demo  lc-rax-ast-demo  eu-west-1a  rax-ast-demo  1  4  1
     INSTANCE  i-e14bbda9  eu-west-1a  InService  Healthy  lc-rax-ast-demo
     TAG  asg-rax-ast-demo  auto-scaling-group  name  rax-ast-demo  true
     </code></pre>
