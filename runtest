@@ -12,7 +12,7 @@ cat <<HSD
 The command line arguments are as follows:
 
     --offset=N          Timing offset parameter for the clients who create
-                        the load on the server [default: 120 secs]
+                        the load on the server [default: 75 secs]
 
     --elb-url=URL       The URL of the elastic load balancer through which
                         requests are to be sent.
@@ -24,7 +24,7 @@ if [ $# -eq 0 ]; then
     help
 fi
 
-offset=120
+offset=75
 elb_url=""
 
 # Process the command-line arguments
